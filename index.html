@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0e0e0;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: white;
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: #333;
+            text-align: center;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <h1>Creación de Elementos (LI) con JavaScript</h1>
+        <h2>Lista de Jugadores de Futbol</h2>
+        <button id="boton">Cargar Lista</button>
+        <ol id="lista_jugadores">
+
+        </ol>
+
+        <script>
+            document.getElementById("boton").addEventListener("click", cargarLista);
+
+            function cargarLista() {
+                const listaContenedor = document.getElementById("lista_jugadores");
+                listaContenedor.innerHTML = "";
+
+                fetch('assets/jugadores_lista.json')
+                    .then(response => response.json())
+                    .then(jugadores => {
+                        jugadores.forEach(jugador => {
+                            let listItem = document.createElement("li");
+                            listItem.setAttribute("style", "color: blue; font-weight: bold;");
+                            listItem.textContent = jugador;
+                            listaContenedor.appendChild(listItem);
+                        });
+                    })
+                    .catch(error => console.error("Error al cargar la lista:", error));
+            }
+        </script>
+    </div>
+</body>
+
+</html>
